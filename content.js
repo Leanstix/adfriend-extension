@@ -1,32 +1,45 @@
 // Function to find and replace ads
 function replaceAds() {
-    const adSelectors = [
-      'iframe[src*="ads"]',
-      'div[id*="ad"]',
-      'div[class*="ad"]',
-      'ins.adsbygoogle',
-      '[aria-label="Advertisement"]'
-    ];
+    // Get the selected widget type from storage
+    chrome.storage.sync.get('widgetType', (data) => {
+      const widgetType = data.widgetType || 'quote'; // Default to quote if not set
   
-    adSelectors.forEach(selector => {
-      document.querySelectorAll(selector).forEach(ad => {
-        const widget = createWidget();
-        ad.replaceWith(widget);
+      const adSelectors = [
+        'iframe[src*="ads"]',
+        'div[id*="ad"]',
+        'div[class*="ad"]',
+        'ins.adsbygoogle',
+        '[aria-label="Advertisement"]'
+      ];
+  
+      adSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(ad => {
+          const widget = createWidget(widgetType);
+          ad.replaceWith(widget);
+        });
       });
     });
   }
   
   // Function to create a motivational widget
-  function createWidget() {
-    const messages = [
-      "Stay focused and never give up!",
-      "Believe in yourself!",
-      "Take a deep breath and keep going!",
-      "Success is built one step at a time!"
-    ];
+  function createWidget(type) {
+    let widgetContent;
+  
+    if (type === 'reminder') {
+      widgetContent = "Have you moved today? Remember to stretch!";
+    } else {
+      // Default to motivational quotes
+      const messages = [
+        "Stay focused and never give up!",
+        "Believe in yourself!",
+        "Take a deep breath and keep going!",
+        "Success is built one step at a time!"
+      ];
+      widgetContent = messages[Math.floor(Math.random() * messages.length)];
+    }
   
     const widget = document.createElement("div");
-    widget.textContent = messages[Math.floor(Math.random() * messages.length)];
+    widget.textContent = widgetContent;
     widget.style.cssText = `
       background: #f9a826;
       color: white;
