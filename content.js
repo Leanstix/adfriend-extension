@@ -1,8 +1,8 @@
 // Function to find and replace ads
 function replaceAds() {
-    // Get the selected widget type from storage
-    chrome.storage.sync.get('widgetType', (data) => {
+    chrome.storage.sync.get(['widgetType', 'frequency'], (data) => {
       const widgetType = data.widgetType || 'quote'; // Default to quote if not set
+      const frequency = data.frequency || '5'; // Default to 5 seconds if not set
   
       const adSelectors = [
         'iframe[src*="ads"]',
@@ -18,6 +18,9 @@ function replaceAds() {
           ad.replaceWith(widget);
         });
       });
+  
+      // Set the interval based on the user's frequency choice
+      setInterval(replaceAds, frequency * 1000);
     });
   }
   
