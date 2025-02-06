@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdFriend Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    label {
+      margin-bottom: 10px;
+      display: block;
+    }
+    select, button {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>AdFriend Options</h2>
+
+  <label for="widgetType">Choose Widget Type:</label>
+  <select id="widgetType">
+    <option value="quote">Motivational Quotes</option>
+    <option value="reminder">Activity Reminders</option>
+  </select>
+
+  <label for="frequency">Set Widget Frequency:</label>
+  <select id="frequency">
+    <option value="5">Every 5 seconds</option>
+    <option value="10">Every 10 seconds</option>
+    <option value="15">Every 15 seconds</option>
+  </select>
+
+  <button id="saveBtn">Save Changes</button>
+
+  <script src="options.js"></script>
+</body>
+</html>
